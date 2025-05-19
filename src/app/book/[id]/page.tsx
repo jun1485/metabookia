@@ -1,8 +1,15 @@
-import { getBookById } from "@/app/data/books";
+import { getBookById, getAllBooks } from "@/app/data/books";
 import { getEscapeRoomByBookId } from "@/app/data/escape-rooms";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BookCover from "@/app/components/BookCover";
+
+export async function generateStaticParams() {
+  const books = getAllBooks();
+  return books.map((book) => ({
+    id: book.id,
+  }));
+}
 
 export default function BookPage({ params }: { params: { id: string } }) {
   const book = getBookById(params.id);

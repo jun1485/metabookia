@@ -96,3 +96,12 @@ export const getBookById = (id: string): Book | undefined => {
   }
   return undefined;
 };
+
+// 모든 책을 반환하는 함수
+export const getAllBooks = (): Book[] => {
+  let allBooks: Book[] = [];
+  for (const series of bookSeries) {
+    allBooks = [...allBooks, ...series.books];
+  }
+  return allBooks;
+};
