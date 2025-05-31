@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# lint-staged를 실행하여 코드 품질 검사
+pnpm lint-staged
+
+# 타입 체크
+echo "타입 체크 중..."
+pnpm exec tsc --noEmit || exit 1
+
+# 빌드 테스트
+echo "빌드 테스트 중..."
+pnpm run build --no-lint || exit 1
+
+echo "✅ 커밋 전 검사 통과!"
