@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BookCover from "@/app/components/BookCover";
 import { ArrowLeft, BookOpen, MapPin } from "lucide-react";
+import { Book } from "@/app/data/types/book";
 
 export async function generateStaticParams() {
   const books = getAllBooks();
@@ -65,7 +66,7 @@ export default function BookPage({ params }: { params: { id: string } }) {
                   출판년도: {book.publishedYear}
                 </span>
                 <span className="inline-block bg-light-300 dark:bg-dark-300 px-3 py-1 rounded-full text-sm">
-                  페이지: {book.pages || "미정"}
+                  페이지: {(book as Book & { pages?: number }).pages || "미정"}
                 </span>
               </div>
             </div>
@@ -76,13 +77,21 @@ export default function BookPage({ params }: { params: { id: string } }) {
                 <span>읽기 시작하기</span>
               </button>
 
+              <Link
+                href={`/book/${book.id}/metaverse`}
+                className="btn-primary text-center flex items-center justify-center gap-2 py-3 px-6 hover:shadow-md transition-all hover:translate-y-[-2px]"
+              >
+                <MapPin size={18} />
+                <span>메타버스 공간 입장하기</span>
+              </Link>
+
               {escapeRoom && (
                 <Link
                   href={`/escape-room/${escapeRoom.id}`}
-                  className="btn-primary text-center flex items-center justify-center gap-2 py-3 px-6 hover:shadow-md transition-all hover:translate-y-[-2px]"
+                  className="btn-secondary text-center flex items-center justify-center gap-2 py-3 px-6 hover:shadow-md transition-all hover:translate-y-[-2px]"
                 >
                   <MapPin size={18} />
-                  <span>메타버스 방탈출 도전하기</span>
+                  <span>방탈출 도전하기</span>
                 </Link>
               )}
             </div>
