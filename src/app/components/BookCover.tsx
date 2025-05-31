@@ -38,23 +38,40 @@ export default function BookCover({
           return;
         }
 
-        // API를 통해 책 표지 가져오기
+        // OpenLibrary API를 직접 호출
+        const query = `${title}${author ? ` ${author}` : ""}`;
+        const encodedQuery = encodeURIComponent(query);
         const response = await fetch(
-          `/api/book-cover?title=${encodeURIComponent(
-            title
-          )}&author=${encodeURIComponent(author)}`
+          `https://openlibrary.org/search.json?q=${encodedQuery}&limit=1`
         );
 
-        const data: BookCoverApiResponse = await response.json();
-
-        if (data.success && data.coverUrl) {
-          setCoverUrl(data.coverUrl);
-        } else {
-          setError(data.message || "책 표지를 가져오는데 실패했습니다");
+        if (!response.ok) {
+          throw new Error("책 정보를 가져오는데 실패했습니다");
         }
+
+        const data = await response.json();
+
+        if (!data.docs || data.docs.length === 0) {
+          throw new Error("해당 책을 찾을 수 없습니다");
+        }
+
+        const book = data.docs[0];
+        const coverId = book.cover_i;
+
+        if (!coverId) {
+          throw new Error("책 표지 이미지를 찾을 수 없습니다");
+        }
+
+        // OpenLibrary 표지 URL 구성
+        const coverUrl = `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+        setCoverUrl(coverUrl);
       } catch (err) {
         console.error("책 표지 로딩 오류:", err);
-        setError("책 표지를 불러오는 중 문제가 발생했습니다");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "책 표지를 불러오는 중 문제가 발생했습니다"
+        );
       } finally {
         setIsLoading(false);
       }

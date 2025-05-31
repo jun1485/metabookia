@@ -102,11 +102,32 @@ export default function Home() {
             ))}
           </motion.div>
 
+          {/* 인터랙티브 퍼즐 섹션 추가 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="mt-6 p-5 bg-secondary-100 dark:bg-secondary-900/40 rounded-xl border border-secondary-200 dark:border-secondary-800/50"
+          >
+            <h3 className="font-bold text-xl mb-3 text-secondary-700 dark:text-secondary-300">
+              인터랙티브 퍼즐 도전
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
+              드래그 앤 드롭으로 해결하는 인터랙티브 퍼즐에 도전해보세요!
+            </p>
+            <Link
+              href="/interactive-puzzle"
+              className="inline-block bg-secondary-600 hover:bg-secondary-700 text-white px-5 py-2 rounded-lg transition-colors shadow-md"
+            >
+              퍼즐 도전하기
+            </Link>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="text-center"
+            className="text-center mt-8"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link

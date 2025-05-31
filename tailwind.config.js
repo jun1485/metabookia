@@ -78,6 +78,7 @@ module.exports = {
         shimmer: "shimmer 2s infinite linear",
         float: "float 4s ease-in-out infinite",
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "metaverse-particle": "metaverse-particle 10s linear infinite",
       },
       keyframes: {
         shimmer: {
@@ -88,10 +89,30 @@ module.exports = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "metaverse-particle": {
+          "0%": {
+            transform: "translateZ(0) translateX(0) translateY(0)",
+            opacity: 0,
+          },
+          "20%": { opacity: 0.8 },
+          "100%": {
+            transform: "translateZ(100px) translateX(50px) translateY(-30px)",
+            opacity: 0,
+          },
+        },
       },
       borderRadius: {
         xl: "0.875rem",
         "2xl": "1.25rem",
+      },
+      perspective: {
+        1000: "1000px",
+      },
+      transformStyle: {
+        "3d": "preserve-3d",
+      },
+      backfaceVisibility: {
+        hidden: "hidden",
       },
     },
   },
