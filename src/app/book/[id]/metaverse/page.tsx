@@ -111,11 +111,7 @@ export default function BookMetaversePage({
         </div>
 
         {/* 메타버스 공간 컴포넌트 */}
-        <ClientMetaverseSpace
-          roomId={metaverseRoom.id}
-          roomData={metaverseRoom}
-          bookTitle={book.title}
-        />
+        <ClientMetaverseSpace roomData={metaverseRoom} bookTitle={book.title} />
       </div>
     </div>
   );

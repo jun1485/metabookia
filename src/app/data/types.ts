@@ -6,6 +6,8 @@ export interface Book {
   coverImage: string;
   series?: string;
   publishedYear?: number;
+  pages?: number;
+  preview?: string;
 }
 
 export interface Chapter {

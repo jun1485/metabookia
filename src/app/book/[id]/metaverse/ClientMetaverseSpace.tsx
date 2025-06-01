@@ -5,13 +5,11 @@ import MetaverseSpace from "@/app/components/MetaverseSpace";
 import { MetaverseRoom } from "@/app/data/metaverse-rooms";
 
 interface ClientMetaverseSpaceProps {
-  roomId: string;
   roomData: MetaverseRoom;
   bookTitle?: string;
 }
 
 export default function ClientMetaverseSpace({
-  roomId,
   roomData,
   bookTitle,
 }: ClientMetaverseSpaceProps) {
@@ -41,5 +39,5 @@ export default function ClientMetaverseSpace({
     );
   }
 
-  return <MetaverseSpace roomId={roomId} roomData={roomData} />;
+  return <MetaverseSpace roomData={roomData} />;
 }

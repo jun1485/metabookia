@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { BookCoverApiResponse } from "../data/types/api";
 
 interface BookCoverProps {
   title: string;
@@ -20,7 +19,7 @@ export default function BookCover({
   height = 256,
 }: BookCoverProps) {
   const [coverUrl, setCoverUrl] = useState<string | null>(
-    defaultCoverImage || null
+    defaultCoverImage || null,
   );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +41,7 @@ export default function BookCover({
         const query = `${title}${author ? ` ${author}` : ""}`;
         const encodedQuery = encodeURIComponent(query);
         const response = await fetch(
-          `https://openlibrary.org/search.json?q=${encodedQuery}&limit=1`
+          `https://openlibrary.org/search.json?q=${encodedQuery}&limit=1`,
         );
 
         if (!response.ok) {
@@ -70,7 +69,7 @@ export default function BookCover({
         setError(
           err instanceof Error
             ? err.message
-            : "책 표지를 불러오는 중 문제가 발생했습니다"
+            : "책 표지를 불러오는 중 문제가 발생했습니다",
         );
       } finally {
         setIsLoading(false);

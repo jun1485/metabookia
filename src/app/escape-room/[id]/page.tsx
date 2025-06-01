@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { getEscapeRoomById } from "@/app/data/escape-rooms";
-import { EscapeRoom, Puzzle } from "@/app/data/types";
+import { EscapeRoom, Puzzle, Book } from "@/app/data/types";
 import { getBookById } from "@/app/data/books";
 
 export default function EscapeRoomPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [escapeRoom, setEscapeRoom] = useState<EscapeRoom | null>(null);
-  const [book, setBook] = useState<any>(null);
+  const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
   const [currentPuzzle, setCurrentPuzzle] = useState<Puzzle | null>(null);
@@ -19,7 +19,6 @@ export default function EscapeRoomPage({ params }: { params: { id: string } }) {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [hintIndex, setHintIndex] = useState(0);
-  const [gameCompleted, setGameCompleted] = useState(false);
   const [metaverseMode, setMetaverseMode] = useState("entrance"); // entrance, puzzle, completed
 
   // 3D 메타버스 환경 관련 상태
@@ -31,7 +30,9 @@ export default function EscapeRoomPage({ params }: { params: { id: string } }) {
     if (room) {
       setEscapeRoom(room);
       const bookData = getBookById(room.bookId);
-      setBook(bookData);
+      if (bookData) {
+        setBook(bookData);
+      }
       if (room.puzzles.length > 0) {
         setCurrentPuzzle(room.puzzles[0]);
       }
@@ -67,7 +68,6 @@ export default function EscapeRoomPage({ params }: { params: { id: string } }) {
           moveToNextRoom();
         } else {
           // 게임 종료
-          setGameCompleted(true);
           setMetaverseMode("completed");
         }
       }, 3000);
@@ -395,8 +395,8 @@ export default function EscapeRoomPage({ params }: { params: { id: string } }) {
                 {!showHint
                   ? "힌트 보기"
                   : hintIndex < currentPuzzle.hints.length - 1
-                  ? "다음 힌트"
-                  : "모든 힌트를 확인했습니다"}
+                    ? "다음 힌트"
+                    : "모든 힌트를 확인했습니다"}
               </motion.button>
 
               <div className="text-sm text-gray-400">

@@ -1,5 +1,3 @@
-import { Book } from "./book";
-
 // 방탈출 수수께끼 관련 타입 정의
 export interface Puzzle {
   id: string;
