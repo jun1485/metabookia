@@ -103,6 +103,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: meta-bookia-service
+          service: meta-bookia-task-service-ajvb08st
           cluster: meta-bookia-cluster
           wait-for-service-stability: true
