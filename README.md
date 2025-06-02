@@ -38,3 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## 테스트 커밋
 
 이 줄은 Husky 테스트를 위해 추가되었습니다.
+
+## CI/CD 배포 테스트
+
+AWS ECS 배포 파이프라인 테스트 - 2025년 6월 2일
